@@ -20,3 +20,25 @@ t0 = time.time()
 k_best_A = SelectKBest(score_func=mutual_info_classif, k=150)
 X_new_A = k_best_A.fit_transform(data_input_features_A, encoded_label_A)
 ```
+# Advanced task
+We further expand the advanced task by changing the number of train_data_C we use from 10% to 100%. By changing the parameter "frac", we can evaluate the performance of our proposed model when we use different amount of train_data_C
+```
+# Split the dataset into normal and abnormal data
+normal_data = data_raw_tab_C_train[data_raw_tab_C_train['y_true(fc)'] == "normal"]
+abnormal_data = data_raw_tab_C_train[data_raw_tab_C_train['y_true(fc)'] != "normal"]
+
+print("Testing the data separation from noraml and abnormal")
+print(normal_data)
+print("\n")
+print(abnormal_data)
+
+# Change the data from data_train_C we use to train by adjusting the value: frac. When frac is 1.0, we use 100% of train_data_C
+sampled_data = normal_data.sample(frac=1.0, random_state=42)
+for label in abnormal_data['y_true(fc)'].unique():
+    label_data = abnormal_data[abnormal_data['y_true(fc)'] == label]
+    sampled_data = pd.concat([sampled_data, label_data.sample(frac=1.0, random_state=42)])
+
+# Reset the index
+sampled_data.reset_index(drop=True, inplace=True)
+data_raw_tab_C_train = sampled_data.sample(frac=1, random_state=42)
+```
