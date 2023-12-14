@@ -15,8 +15,8 @@ We used multi-layer perceptron to train the model on domain A. After that, we ap
 
 # Feature selection
 The originality of the research mainly lies on feature selection process. We calculate the mutual information betwwen the label column and feature columns and select different numbers of top features. By changeing the value K, we can evaluate the performance when we use different number of selected features.
-'''
+```
 t0 = time.time()
 k_best_A = SelectKBest(score_func=mutual_info_classif, k=150)
 X_new_A = k_best_A.fit_transform(data_input_features_A, encoded_label_A)
-'''
+```
