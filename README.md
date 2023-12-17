@@ -8,6 +8,7 @@ Also, the code still need further refinement.
 
 # Repository structure
 data: folder containing the datasets for domain A and domain C
+
 MLP_based_feature_selection: The entire python code to address the NDT problem
 
 # Proposed model
